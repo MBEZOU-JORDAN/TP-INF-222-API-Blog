@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
 from db.database import Base, engine
 from api.endpoints.auth_route import router as auth_router
@@ -12,15 +11,6 @@ app = FastAPI(
     title="Blog API",
     description="API backend pour la gestion d'un blog - INF222 TAF1",
     version="1.0.0"
-)
-
-# CORS (utile si tu connectes un frontend plus tard)
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
 )
 
 # Enregistrement des routes
