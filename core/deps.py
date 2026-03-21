@@ -24,8 +24,8 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
     try:
         # On décode le token
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        email: str = payload.get("sub") # "sub" (subject) contient généralement l'email ou l'ID
-        if email is None:
+        username: str = payload.get("sub") # "sub" (subject) contient généralement l'username ou l'ID
+        if username is None:
             raise credentials_exception
             
     except jwt.ExpiredSignatureError:
@@ -34,7 +34,7 @@ def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(
         raise credentials_exception
         
     # On cherche l'utilisateur dans la base de données
-    user = db.query(User).filter(User.email == email).first()
+    user = db.query(User).filter(User.username == username).first()
     if user is None:
         raise credentials_exception
         

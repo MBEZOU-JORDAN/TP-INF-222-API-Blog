@@ -29,20 +29,14 @@ class ArticleService:
 
     @staticmethod
     def get_all(db: Session, current_user: User):
-        """Un admin voit tout, un utilisateur voit seulement les siens."""
-        if current_user.role == "admin":
-            return db.query(Article).all()
         return db.query(Article).filter(Article.user_id == current_user.id).all()
     
     @staticmethod
     def get_by_id(db: Session, article_id: int, current_user: User) -> Optional[Article]:
-        """Un admin peut récupérer n'importe quel article."""
-        query = db.query(Article).filter(Article.id == article_id)
-        
-        if current_user.role != "admin":
-            query = query.filter(Article.user_id == current_user.id)
-            
-        return query.first()
+        return db.query(Article).filter(
+            Article.id == article_id,
+            Article.user_id == current_user.id
+        ).first()    
     
     @staticmethod
     def update(db: Session, article_id: int, article_data: ArticleUpdate, current_user: User) -> Optional[Article]:
@@ -58,7 +52,7 @@ class ArticleService:
         db.commit()
         db.refresh(db_article)
         return db_article
-
+ 
     @staticmethod
     def delete(db: Session, article_id: int, current_user: User) -> bool:
         db_article = ArticleService.get_by_id(db, article_id, current_user)
@@ -68,3 +62,22 @@ class ArticleService:
         db.delete(db_article)
         db.commit()
         return True
+
+    @staticmethod
+    def search(db: Session, query_str: str, current_user: User):
+        query = db.query(Article).filter(
+            Article.titre.ilike(f"%{query_str}%") | Article.contenu.ilike(f"%{query_str}%")
+        )
+        return query.all()
+    
+    @staticmethod
+    def get_by_categorie_date(db: Session, current_user: User, categorie: Optional[str] = None, date: Optional[str] = None):
+        query = db.query(Article)
+        
+        if categorie:
+            query = query.filter(Article.categorie == categorie)
+            
+        if date:
+            query = query.filter(Article.date == date)
+            
+        return query.all()

@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
-from datetime import datetime
-from db.database import Base # Adapte l'import
+from datetime import datetime, timezone
+from db.database import Base
 
 class Article(Base):
     __tablename__ = "articles"
@@ -10,7 +10,7 @@ class Article(Base):
     titre = Column(String(255), nullable=False)
     contenu = Column(Text, nullable=False)
     auteur = Column(String(100), nullable=False)
-    date = Column(DateTime, default=datetime.utcnow)
+    date = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     categorie = Column(String(100))
     tags = Column(String(255)) 
     
