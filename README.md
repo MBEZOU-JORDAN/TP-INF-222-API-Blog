@@ -352,14 +352,6 @@ Le code source est disponible sur GitHub :
 
 ---
 
-## Auteur
-
-**MBEZOU DJAMEN JORDAN BENI** — Matricule : 24G2898
-Informatique L2 — UE INF222 – EC1 (Développement Backend)
-Université de Yaoundé I — Année académique 2025-2026
-
----
-
 ## Tests
 
 Les tests sont écrits avec **pytest** et utilisent une base de données SQLite en mémoire — MySQL n'est pas requis pour les faire tourner.
@@ -418,3 +410,13 @@ uv add pytest httpx pytest-asyncio
 | `test_delete_article` | Suppression puis vérification → `204` puis `404` |
 | `test_search_articles` | Recherche plein texte → `200` |
 | `test_filter_articles` | Filtrage par catégorie → `200` |
+
+---
+
+## Auteur
+
+**MBEZOU DJAMEN JORDAN BENI** — Matricule : 24G2898
+Informatique L2 — UE INF222 – EC1 (Développement Backend)
+Université de Yaoundé I — Année académique 2025-2026
+
+---
