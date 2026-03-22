@@ -357,3 +357,64 @@ Le code source est disponible sur GitHub :
 **MBEZOU DJAMEN JORDAN BENI** — Matricule : 24G2898
 Informatique L2 — UE INF222 – EC1 (Développement Backend)
 Université de Yaoundé I — Année académique 2025-2026
+
+---
+
+## Tests
+
+Les tests sont écrits avec **pytest** et utilisent une base de données SQLite en mémoire — MySQL n'est pas requis pour les faire tourner.
+
+### Structure
+
+```
+tests/
+├── conftest.py       # Fixtures partagées (client, db, utilisateur de test, token)
+├── test_auth.py      # Tests inscription, connexion, doublons
+└── test_articles.py  # Tests CRUD, recherche, filtres
+```
+
+### Installation des dépendances de test
+
+```bash
+uv add pytest httpx pytest-asyncio
+```
+
+### Lancer les tests
+
+```bash
+# Tous les tests
+.venv/bin/python -m pytest tests/ -v
+
+# Un fichier spécifique
+.venv/bin/python -m pytest tests/test_auth.py -v
+.venv/bin/python -m pytest tests/test_articles.py -v
+
+# Avec résumé court
+.venv/bin/python -m pytest tests/ -v --tb=short
+```
+
+### Cas de test couverts
+
+**Authentification (`test_auth.py`)**
+
+| Test | Description |
+|------|-------------|
+| `test_register_success` | Inscription réussie d'un nouvel utilisateur |
+| `test_register_duplicate_username` | Rejet si username déjà pris → `400` |
+| `test_register_duplicate_email` | Rejet si email déjà utilisé → `400` |
+| `test_login_success` | Connexion réussie → token JWT retourné |
+| `test_login_wrong_password` | Rejet si mot de passe incorrect → `400` |
+| `test_login_nonexistent_user` | Rejet si utilisateur inexistant → `400` |
+
+**Articles (`test_articles.py`)**
+
+| Test | Description |
+|------|-------------|
+| `test_create_article` | Création d'un article → `201` |
+| `test_get_all_articles` | Liste des articles → `200` |
+| `test_get_article_by_id` | Récupération par ID → `200` |
+| `test_get_article_not_found` | ID inexistant → `404` |
+| `test_update_article` | Modification d'un article → `200` |
+| `test_delete_article` | Suppression puis vérification → `204` puis `404` |
+| `test_search_articles` | Recherche plein texte → `200` |
+| `test_filter_articles` | Filtrage par catégorie → `200` |
