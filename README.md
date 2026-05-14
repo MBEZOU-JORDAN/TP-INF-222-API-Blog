@@ -1,4 +1,16 @@
-# Blog API — TAF1 INF222 – EC1 (Développement Backend)
+# 📝 Blog REST API — Production-Ready Backend
+
+> A fully deployed REST API for blog management, built with FastAPI and MySQL.
+> Live at: **https://jordanmd-blog-api.onrender.com**
+
+**What this demonstrates:**
+- Production deployment (Render + Railway) — not just local
+- JWT authentication with role-based access control
+- Database migrations with Alembic
+- Full test suite (pytest) with 14 passing tests
+- Clean architecture: routes / services / models / schemas
+
+---
 
 API REST backend pour la gestion d'un blog, développée avec **FastAPI** et **MySQL**.
 
@@ -420,3 +432,5 @@ Informatique L2 — UE INF222 – EC1 (Développement Backend)
 Université de Yaoundé I — Année académique 2025-2026
 
 ---
+**Jordan MD** — AI & Backend Developer
+[GitHub](https://github.com/Jordan-MD) · [Upwork](https://www.upwork.com/freelancers/~0195bbb21467f2c341?mp_source=share)
